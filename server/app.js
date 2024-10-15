@@ -9,6 +9,7 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('hi!');
 });
+
 app.post('/users', createUser);
 
 app.use((err, req, res) => {
