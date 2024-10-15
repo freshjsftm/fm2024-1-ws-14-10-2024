@@ -6,7 +6,12 @@ const Message = require('./models/Message');
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 
-const io = new Server(server);
+const io = new Server(server, {
+  transports: ['websocket'],
+  cors: {
+    origin: 'http://localhost:5173',
+  },
+});
 //io - спілкується з усіма користувачами
 io.on('connection', (socket) => {
   //socket - з'єднання з конкретним користувачем

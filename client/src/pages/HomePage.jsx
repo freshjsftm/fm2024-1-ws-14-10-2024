@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import RegisterForm from '../components/RegisterForm';
+import MessageForm from '../components/MessageForm';
 
 const HomePage = () => {
   const { user, error, isPending } = useSelector((store) => store.user);
@@ -13,7 +14,8 @@ const HomePage = () => {
     return (
       <div>
         Hi, {user.login}
-        {/* <MessageForm /> */}
+        {/* <MessagesList /> */}
+        <MessageForm />
       </div>
     );
   }
