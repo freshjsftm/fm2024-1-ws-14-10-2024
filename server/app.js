@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { createUser } = require('./controllers/user.controller');
+const { createOrFindUser } = require('./controllers/user.controller');
 
 const app = express();
 app.use(cors());
@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
   res.send('hi!');
 });
 
-app.post('/users', createUser);
+app.post('/users', createOrFindUser);
 
 app.use((err, req, res) => {
   console.log('---->>', err);
