@@ -1,8 +1,11 @@
 const http = require('http');
 const { Server } = require('socket.io');
-
 const app = require('./app');
 const Message = require('./models/Message');
+const constants = require('./constants');
+const {
+  WS_EVENTS: { NEW_MSG, ERR_MSG },
+} = constants;
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 
@@ -16,16 +19,16 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   //socket - з'єднання з конкретним користувачем
   console.log('connection to socket');
-  socket.on('newMessage', async (dataMsg) => {
+  socket.on(NEW_MSG, async (dataMsg) => {
     try {
       const msg = await Message.create(dataMsg);
       const [message] = await Message.find({ _id: msg._id }).populate({
         path: 'userId',
         select: 'login',
       });
-      io.emit('newMessage', message);
+      io.emit(NEW_MSG, message);
     } catch (error) {
-      socket.emit('errorMsg', error.errors.content.message);
+      socket.emit(ERR_MSG, error.errors.content.message);
     }
   });
   socket.on('disconnect', (reason) => {
