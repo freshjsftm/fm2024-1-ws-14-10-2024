@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 
 const io = new Server(server, {
-  transports: ['websocket'],
+  //transports: ['websocket'],
   cors: {
     origin: 'http://localhost:5173',
   },

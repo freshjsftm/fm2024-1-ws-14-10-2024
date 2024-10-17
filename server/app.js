@@ -1,14 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const { createOrFindUser } = require('./controllers/user.controller');
+const { getMessages } = require('./controllers/message.controller');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('hi!');
-});
+app.get('/', getMessages);
 
 app.post('/users', createOrFindUser);
 
