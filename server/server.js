@@ -18,12 +18,15 @@ io.on('connection', (socket) => {
   console.log('connection to socket');
   socket.on('newMessage', async (dataMsg) => {
     try {
-      console.log('event newMessage, dataMsg = ', dataMsg);
       const msg = await Message.create(dataMsg);
       if (!msg) {
         return socket.emit('badMsg', 'invalid message');
       }
-      io.emit('newMessage', msg);
+      const [message] = await Message.find({ _id: msg._id }).populate({
+        path: 'userId',
+        select: 'login',
+      });
+      io.emit('newMessage', message);
     } catch (error) {
       socket.emit('error', error);
     }
