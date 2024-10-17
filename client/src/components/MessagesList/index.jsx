@@ -14,6 +14,12 @@ const MessagesList = () => {
     }
     //eslint-disable-next-line
   }, []);
+  useEffect(() => {
+    window.scrollTo({ 
+      top: document.body.scrollHeight, 
+      behavior: 'smooth' 
+    });
+  }, [messages.length]);
   const showMessage = (msg) => <Message key={msg._id} msg={msg} />;
   if (isPending) {
     return <p>Loading...</p>;

@@ -9,6 +9,7 @@ const MessageForm = () => {
   const onSubmit = (values, formikBag) => {
     const message = { ...values, userId: user?._id };
     createNewMessages(message);
+    formikBag.resetForm();
   };
   return (
     <Formik initialValues={{ content: '' }} onSubmit={onSubmit}>
