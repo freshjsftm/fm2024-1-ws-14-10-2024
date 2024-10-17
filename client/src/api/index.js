@@ -9,7 +9,7 @@ const httpClient = axios.create({
 
 const socket = io('ws://localhost:3000');
 
-export const getHome = () => httpClient.get('/');
+export const getMessages = () => httpClient.get('/');
 export const createUser = (values) => httpClient.post('/users', values);
 
 export const createNewMessages = (message) =>
