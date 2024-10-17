@@ -4,6 +4,7 @@ import { createNewMessages } from '../../api';
 
 const MessageForm = () => {
   const { user } = useSelector((store) => store.user);
+  const { errorMsg } = useSelector((store) => store.chat);
   //eslint-disable-next-line
   const onSubmit = (values, formikBag) => {
     const message = { ...values, userId: user?._id };
@@ -13,6 +14,7 @@ const MessageForm = () => {
     <Formik initialValues={{ content: '' }} onSubmit={onSubmit}>
       <Form>
         <label>
+          {errorMsg && <p style={{color: 'red'}}>{errorMsg}</p>}
           <span>new message</span>
           <Field name="content" />
           <ErrorMessage name="content" />

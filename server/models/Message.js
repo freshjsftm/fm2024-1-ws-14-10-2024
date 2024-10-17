@@ -5,8 +5,8 @@ const messageSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (value) => /[A-Za-z0-9\s\\.!?-]{3,}/.test(value),
-      message: (props) => `${props.value} is not a valid login!`,
+      validator: (value) => /^[A-Za-z0-9\s\\.!?-]{3,}$/.test(value),
+      message: (props) => `${props.value} is not a valid content!`,
     },
   },
   userId: {

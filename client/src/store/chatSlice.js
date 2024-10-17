@@ -5,7 +5,9 @@ export const getAllMessages = createAsyncThunk(
   'chat/getAllMessages',
   async (params, thunkAPI) => {
     try {
-      const { data: { data } } = await getMessages();
+      const {
+        data: { data },
+      } = await getMessages();
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -19,13 +21,19 @@ const chatSlice = createSlice({
     messages: [],
     error: null,
     isPending: false,
+    errorMsg: null
   },
   reducers: {
     addMessage: (state, action) => {
+      state.errorMsg= null;
       state.messages.push(action.payload);
     },
+    errorMessage: (state, action) => {
+      state.errorMsg = action.payload;
+    },
   },
-  extraReducers: (builder) => { //eslint-disable-next-line
+  extraReducers: (builder) => {
+    //eslint-disable-next-line
     builder.addCase(getAllMessages.pending, (state, action) => {
       state.isPending = true;
       state.error = null;
@@ -42,5 +50,5 @@ const chatSlice = createSlice({
   },
 });
 
-export const { addMessage } = chatSlice.actions;
+export const { addMessage, errorMessage } = chatSlice.actions;
 export default chatSlice.reducer;

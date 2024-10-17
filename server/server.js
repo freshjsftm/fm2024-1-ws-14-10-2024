@@ -19,16 +19,13 @@ io.on('connection', (socket) => {
   socket.on('newMessage', async (dataMsg) => {
     try {
       const msg = await Message.create(dataMsg);
-      if (!msg) {
-        return socket.emit('badMsg', 'invalid message');
-      }
       const [message] = await Message.find({ _id: msg._id }).populate({
         path: 'userId',
         select: 'login',
       });
       io.emit('newMessage', message);
     } catch (error) {
-      socket.emit('error', error);
+      socket.emit('errorMsg', error.errors.content.message);
     }
   });
   socket.on('disconnect', (reason) => {

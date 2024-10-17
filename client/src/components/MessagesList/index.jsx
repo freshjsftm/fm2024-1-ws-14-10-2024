@@ -19,7 +19,7 @@ const MessagesList = () => {
     return <p>Loading...</p>;
   }
   if (error) {
-    return <p>Error!!! {error}</p>;
+    return <p>MessagesList Error!!! {error}</p>;
   }
   return (
     <section>
